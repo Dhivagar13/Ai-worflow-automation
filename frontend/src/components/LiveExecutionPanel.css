@@ -1,0 +1,118 @@
+.live-execution-panel {
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: var(--space-xl);
+}
+
+.live-execution-panel .panel-header {
+  height: 36px;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0 var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.status-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot.red { background: #ff5f56; }
+.dot.yellow { background: #ffbd2e; }
+.dot.green { background: #27c93f; }
+
+.panel-title {
+  flex: 1;
+  text-align: center;
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.panel-status {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  color: var(--color-executor);
+}
+
+.panel-body {
+  flex: 1;
+  padding: var(--space-md);
+  overflow-y: auto;
+  font-family: var(--font-mono);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.terminal-prompt {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  padding-top: var(--space-sm);
+}
+
+.cursor {
+  font-weight: bold;
+  color: var(--color-executor);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.terminal-logs {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.terminal-log-line {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+.terminal-log-line .timestamp {
+  color: var(--text-muted);
+  margin-right: var(--space-sm);
+}
+
+.terminal-log-line .agent {
+  color: var(--color-planner);
+  margin-right: var(--space-sm);
+  font-weight: 600;
+}
+
+.terminal-log-line.executor .agent { color: var(--color-executor); }
+.terminal-log-line.monitor .agent { color: var(--color-monitor); }
+
+.terminal-log-line .message {
+  color: var(--text-primary);
+}
+
+.terminal-log-line.error .message {
+  color: var(--color-error);
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.4; }
+}
