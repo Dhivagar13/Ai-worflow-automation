@@ -132,7 +132,7 @@
   font-weight: 800;
   text-transform: uppercase;
   flex-shrink: 0;
-  box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.2);
 }
 
 .nav-user__info {

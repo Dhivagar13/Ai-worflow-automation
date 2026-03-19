@@ -6,13 +6,13 @@
   --bg-card: rgba(255, 255, 255, 0.03);
   --bg-card-hover: rgba(255, 255, 255, 0.05);
   
-  --color-planner: #a855f7;
-  --color-planner-bg: rgba(168, 85, 247, 0.1);
+  --color-planner: #22c55e;
+  --color-planner-bg: rgba(34, 197, 94, 0.1);
   --color-executor: #39ff14;
   --color-executor-bg: rgba(57, 255, 20, 0.1);
-  --color-monitor: #0ea5e9;
-  --color-monitor-bg: rgba(14, 165, 233, 0.1);
-  --color-warning: #facc15;
+  --color-monitor: #10b981;
+  --color-monitor-bg: rgba(16, 185, 129, 0.1);
+  --color-warning: #84cc16;
   --color-error: #ef4444;
   
   --text-primary: #f8fafc;
