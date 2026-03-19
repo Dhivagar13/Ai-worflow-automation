@@ -107,6 +107,25 @@
   color: var(--color-error);
 }
 
+.json-payload {
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: var(--color-executor);
+  display: block;
+  margin-top: 4px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.message {
+  display: inline-block;
+  vertical-align: top;
+  max-width: 80%;
+}
+
 .animate-pulse {
   animation: pulse 2s infinite;
 }

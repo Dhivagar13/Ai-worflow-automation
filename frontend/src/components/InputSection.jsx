@@ -30,7 +30,7 @@ export default function InputSection({ onSubmit, isLoading }) {
     <section className="input-section">
       <div className="input-section__card">
         <label className="input-section__label">
-          <span>⚡</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
           <span>Define Your Task</span>
         </label>
 
@@ -61,8 +61,8 @@ export default function InputSection({ onSubmit, isLoading }) {
               </>
             ) : (
               <>
-                <span>🚀</span>
-                Run Workflow
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                Execute Pipeline
               </>
             )}
           </button>

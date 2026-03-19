@@ -10,6 +10,33 @@ export default function LiveExecutionPanel({ logs, isRunning }) {
     }
   }, [logs]);
 
+  const formatLogMessage = (msg) => {
+    // If the message looks like JSON (starts with { or [), try to format it
+    if (typeof msg === 'string' && (msg.trim().startsWith('{') || msg.trim().startsWith('['))) {
+      try {
+        const parsed = JSON.parse(msg);
+        return (
+          <pre className="json-payload">
+            {JSON.stringify(parsed, null, 2)}
+          </pre>
+        );
+      } catch (e) {
+        // Not valid JSON, return as is
+      }
+    }
+    
+    // Check if it's an object itself
+    if (typeof msg === 'object') {
+       return (
+          <pre className="json-payload">
+            {JSON.stringify(msg, null, 2)}
+          </pre>
+       );
+    }
+    
+    return msg;
+  };
+
   return (
     <div className="live-execution-panel glass animate-fade">
       <div className="panel-header">
@@ -18,7 +45,7 @@ export default function LiveExecutionPanel({ logs, isRunning }) {
             <span className="dot yellow"></span>
             <span className="dot green"></span>
          </div>
-         <span className="panel-title">System Execution Terminal (v1.0.4)</span>
+         <span className="panel-title">System Execution Terminal (v1.0.5)</span>
          <span className="panel-status">{isRunning ? 'UPDATING...' : 'IDLE'}</span>
       </div>
 
@@ -33,7 +60,7 @@ export default function LiveExecutionPanel({ logs, isRunning }) {
                 <div key={idx} className={`terminal-log-line ${log.type?.toLowerCase()}`}>
                    <span className="timestamp">{log.timestamp || new Date().toLocaleTimeString()}</span>
                    <span className="agent">[{log.agent || 'SYSTEM'}]</span>
-                   <span className="message">{log.message}</span>
+                   <div className="message">{formatLogMessage(log.message)}</div>
                 </div>
               ))}
               {isRunning && (

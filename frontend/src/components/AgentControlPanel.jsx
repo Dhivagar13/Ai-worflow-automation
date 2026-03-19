@@ -2,9 +2,9 @@ import React from 'react';
 import './AgentControlPanel.css';
 
 const agents = [
-  { id: 'planner', name: 'Strategic Planner', icon: '🧠', color: 'var(--color-planner)' },
-  { id: 'executor', name: 'Rapid Executor', icon: '⚡', color: 'var(--color-executor)' },
-  { id: 'monitor', name: 'Critical Reviewer', icon: '🧐', color: 'var(--color-monitor)' },
+  { id: 'planner', name: 'Strategic Planner', icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>, color: 'var(--color-planner)' },
+  { id: 'executor', name: 'Rapid Executor', icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>, color: 'var(--color-executor)' },
+  { id: 'monitor', name: 'Critical Reviewer', icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>, color: 'var(--color-monitor)' },
 ];
 
 export default function AgentControlPanel({ stage, result }) {
