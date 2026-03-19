@@ -83,6 +83,11 @@ print("✅ Workflow graph compiled successfully!")
 # Endpoints
 # ─────────────────────────────────────────────────────────────────────────────
 
+@app.get("/")
+def read_root():
+    """Root endpoint for basic browser pings."""
+    return {"message": "Agentic AI Workflow Engine Backend is Online. Please route requests to /api/run"}
+
 @app.get("/api/health")
 def health_check():
     """Health check endpoint."""
