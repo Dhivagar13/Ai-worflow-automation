@@ -7,7 +7,7 @@ them with corrective feedback (triggering a retry loop, up to 2 cycles).
 """
 
 import json
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 from langchain_core.messages import SystemMessage, HumanMessage
 
 
@@ -93,7 +93,7 @@ def monitor_agent(state: dict) -> dict:
     )
 
     # Call the LLM
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.3)
+    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.3)
     messages = [
         SystemMessage(content=system_prompt),
         HumanMessage(content=user_message),

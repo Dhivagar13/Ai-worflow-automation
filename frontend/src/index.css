@@ -7,55 +7,55 @@
 /* ── CSS Custom Properties (Design Tokens) ──────────────────────────────── */
 
 :root {
-  /* Color Palette — Cyberpunk-inspired dark theme */
-  --bg-primary: #0a0e1a;
-  --bg-secondary: #111827;
-  --bg-tertiary: #1a2035;
-  --bg-card: rgba(17, 24, 39, 0.85);
-  --bg-card-hover: rgba(26, 32, 53, 0.95);
-  --bg-glass: rgba(17, 24, 39, 0.6);
+  /* Color Palette — Green Neon Theme */
+  --bg-primary: #050a06;
+  --bg-secondary: #0a140d;
+  --bg-tertiary: #0d1e13;
+  --bg-card: rgba(10, 20, 13, 0.85);
+  --bg-card-hover: rgba(14, 30, 19, 0.95);
+  --bg-glass: rgba(10, 20, 13, 0.6);
 
-  --border-primary: rgba(99, 102, 241, 0.25);
-  --border-secondary: rgba(255, 255, 255, 0.06);
-  --border-glow: rgba(99, 102, 241, 0.5);
+  --border-primary: rgba(57, 255, 20, 0.4);
+  --border-secondary: rgba(57, 255, 20, 0.15);
+  --border-glow: rgba(57, 255, 20, 0.7);
 
-  --text-primary: #f0f4ff;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --text-accent: #818cf8;
+  --text-primary: #e0ffe8;
+  --text-secondary: #7bbd94;
+  --text-muted: #4e8262;
+  --text-accent: #39ff14;
 
   /* Agent Colors */
-  --color-planner: #818cf8;
-  --color-planner-bg: rgba(129, 140, 248, 0.1);
-  --color-planner-border: rgba(129, 140, 248, 0.3);
+  --color-planner: #39ff14;
+  --color-planner-bg: rgba(57, 255, 20, 0.15);
+  --color-planner-border: rgba(57, 255, 20, 0.4);
 
-  --color-tool-selector: #34d399;
-  --color-tool-selector-bg: rgba(52, 211, 153, 0.1);
-  --color-tool-selector-border: rgba(52, 211, 153, 0.3);
+  --color-tool-selector: #00ff7f;
+  --color-tool-selector-bg: rgba(0, 255, 127, 0.15);
+  --color-tool-selector-border: rgba(0, 255, 127, 0.4);
 
-  --color-executor: #f59e0b;
-  --color-executor-bg: rgba(245, 158, 11, 0.1);
-  --color-executor-border: rgba(245, 158, 11, 0.3);
+  --color-executor: #adff2f;
+  --color-executor-bg: rgba(173, 255, 47, 0.15);
+  --color-executor-border: rgba(173, 255, 47, 0.4);
 
-  --color-monitor: #f472b6;
-  --color-monitor-bg: rgba(244, 114, 182, 0.1);
-  --color-monitor-border: rgba(244, 114, 182, 0.3);
+  --color-monitor: #7fff00;
+  --color-monitor-bg: rgba(127, 255, 0, 0.15);
+  --color-monitor-border: rgba(127, 255, 0, 0.4);
 
   /* Status Colors */
-  --color-success: #34d399;
-  --color-success-bg: rgba(52, 211, 153, 0.1);
-  --color-warning: #fbbf24;
-  --color-warning-bg: rgba(251, 191, 36, 0.1);
-  --color-error: #f87171;
-  --color-error-bg: rgba(248, 113, 113, 0.1);
-  --color-info: #60a5fa;
-  --color-info-bg: rgba(96, 165, 250, 0.1);
+  --color-success: #39ff14;
+  --color-success-bg: rgba(57, 255, 20, 0.15);
+  --color-warning: #adff2f;
+  --color-warning-bg: rgba(173, 255, 47, 0.15);
+  --color-error: #ff3333;
+  --color-error-bg: rgba(255, 51, 51, 0.15);
+  --color-info: #00ff7f;
+  --color-info-bg: rgba(0, 255, 127, 0.15);
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --gradient-accent: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
-  --gradient-glow: linear-gradient(135deg, rgba(99, 102, 241, 0.3) 0%, rgba(168, 85, 247, 0.1) 100%);
-  --gradient-card: linear-gradient(180deg, rgba(17, 24, 39, 0.9) 0%, rgba(10, 14, 26, 0.95) 100%);
+  --gradient-primary: linear-gradient(135deg, #0e2e17 0%, #1a5e2c 100%);
+  --gradient-accent: linear-gradient(135deg, #39ff14 0%, #00ff7f 100%);
+  --gradient-glow: linear-gradient(135deg, rgba(57, 255, 20, 0.3) 0%, rgba(0, 255, 127, 0.1) 100%);
+  --gradient-card: linear-gradient(180deg, rgba(10, 20, 13, 0.9) 0%, rgba(5, 10, 6, 0.95) 100%);
 
   /* Typography */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -80,8 +80,8 @@
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.2);
-  --shadow-glow-lg: 0 0 40px rgba(99, 102, 241, 0.3);
+  --shadow-glow: 0 0 20px rgba(57, 255, 20, 0.2);
+  --shadow-glow-lg: 0 0 40px rgba(57, 255, 20, 0.4);
 
   /* Transitions */
   --transition-fast: 150ms ease;
@@ -125,9 +125,9 @@ body::before {
   width: 200%;
   height: 200%;
   background: 
-    radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(168, 85, 247, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 80%, rgba(52, 211, 153, 0.04) 0%, transparent 50%);
+    radial-gradient(ellipse at 20% 50%, rgba(57, 255, 20, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(0, 255, 127, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(173, 255, 47, 0.03) 0%, transparent 50%);
   pointer-events: none;
   z-index: -1;
   animation: ambientFloat 20s ease-in-out infinite;
@@ -157,12 +157,12 @@ body::before {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(99, 102, 241, 0.3);
+  background: rgba(57, 255, 20, 0.3);
   border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(99, 102, 241, 0.5);
+  background: rgba(57, 255, 20, 0.5);
 }
 
 

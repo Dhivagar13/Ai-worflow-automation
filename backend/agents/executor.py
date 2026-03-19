@@ -6,7 +6,7 @@ and produces concrete outputs for each step.
 """
 
 import json
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 from langchain_core.messages import SystemMessage, HumanMessage
 
 from backend.tools.simulated_tools import execute_tool
@@ -122,7 +122,7 @@ def executor_agent(state: dict) -> dict:
         all_tool_results.append(step_results)
 
     # ── Use LLM to synthesize execution results ───────────────────────────
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.2)
+    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.2)
 
     user_message = (
         f"Here are the execution results for the plan:\n\n"

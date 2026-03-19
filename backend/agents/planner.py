@@ -6,7 +6,7 @@ of sequential steps with dependencies noted. It's the first agent in the workflo
 """
 
 import json
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 from langchain_core.messages import SystemMessage, HumanMessage
 
 
@@ -83,7 +83,7 @@ def planner_agent(state: dict) -> dict:
         })
 
     # Call the LLM
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.3)
+    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.3)
     messages = [
         SystemMessage(content=PLANNER_SYSTEM_PROMPT),
         HumanMessage(content=user_message),

@@ -17,8 +17,14 @@ def test_workflow():
             print(f"Decision: {data.get('monitor_decision')}")
             print(f"Execution Time: {data.get('execution_time_seconds')}s")
             print(f"Retries: {data.get('retry_count')}")
+            if data.get('error'):
+                print(f"❌ Error: {data.get('error')}")
             print("\nFinal Output Preview:")
-            print(data.get('final_output')[:200] + "...")
+            print(data.get('final_output') if data.get('final_output') else "No output")
+            print("\nAgent Logs:")
+            for log in data.get('agent_logs', []):
+                print(f"[{log.get('agent')}] {log.get('type')}: {log.get('message')}")
+
         else:
             print(f"❌ Failed: {response.status_code}")
             print(response.text)

@@ -49,6 +49,21 @@ export default function ExecutionTrace({ executionResults }) {
                 ⚠️ {step.issues}
               </div>
             )}
+
+            {step.tool_outputs && step.tool_outputs.length > 0 && (
+              <div className="exec-step__tool-outputs" style={{ marginTop: '10px' }}>
+                {step.tool_outputs.map((out, k) => (
+                  <div key={k} style={{ background: 'rgba(0,0,0,0.3)', padding: '8px', borderRadius: '6px', marginBottom: '4px', fontSize: '0.72rem' }}>
+                    <div style={{ color: 'var(--color-executor)', fontFamily: 'var(--font-mono)', marginBottom: '4px', fontWeight: 'bold' }}>
+                      Output from: {out.tool_name}
+                    </div>
+                    <pre style={{ margin: 0, whiteSpace: 'pre-wrap', color: 'var(--text-secondary)', fontFamily: 'var(--font-mono)' }}>
+                      {JSON.stringify(out.result, null, 2)}
+                    </pre>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         ))}
 

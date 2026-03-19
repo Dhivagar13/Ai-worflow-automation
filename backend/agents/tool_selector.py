@@ -6,7 +6,7 @@ simulated tools from the available tool registry.
 """
 
 import json
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 from langchain_core.messages import SystemMessage, HumanMessage
 
 from backend.tools.simulated_tools import AVAILABLE_TOOLS
@@ -88,7 +88,7 @@ def tool_selector_agent(state: dict) -> dict:
     )
 
     # Call the LLM
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.2)
+    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.2)
     messages = [
         SystemMessage(content=system_prompt),
         HumanMessage(content=user_message),

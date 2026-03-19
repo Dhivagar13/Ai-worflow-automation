@@ -18,12 +18,13 @@ from dotenv import load_dotenv
 
 from backend.graph.workflow import build_workflow
 
-# Load environment variables
-load_dotenv()
+# Load environment variables (from the same directory as server.py)
+env_path = os.path.join(os.path.dirname(__file__), ".env")
+load_dotenv(dotenv_path=env_path)
 
-# Validate OpenAI API key is available
-if not os.getenv("OPENAI_API_KEY"):
-    print("⚠️  WARNING: OPENAI_API_KEY not set in environment. Set it in backend/.env")
+# Validate API keys are available
+if not os.getenv("OPENAI_API_KEY") and not os.getenv("GROQ_API_KEY"):
+    print("⚠️  WARNING: Neither OPENAI_API_KEY nor GROQ_API_KEY set in environment.")
 
 # ─────────────────────────────────────────────────────────────────────────────
 # FastAPI App

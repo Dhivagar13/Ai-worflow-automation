@@ -22,9 +22,19 @@ export default function ToolSelections({ toolSelections }) {
               Step {sel.step_number}: {sel.step_title}
             </div>
             {(sel.selected_tools || []).map((tool, j) => (
-              <div key={j} className="tool-item">
-                <span className="tool-item__name">{tool.tool_name}</span>
-                <span className="tool-item__reason">{tool.reason}</span>
+              <div key={j} className="tool-item" style={{ flexDirection: 'column', gap: '4px' }}>
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-start', width: '100%' }}>
+                  <span className="tool-item__name">{tool.tool_name}</span>
+                  <span className="tool-item__reason">{tool.reason}</span>
+                </div>
+                {tool.parameters && Object.keys(tool.parameters).length > 0 && (
+                  <div style={{ width: '100%', marginTop: '4px', background: 'rgba(0,0,0,0.3)', padding: '6px', borderRadius: '4px', fontSize: '0.7rem', fontFamily: 'var(--font-mono)' }}>
+                    <div style={{ color: 'var(--text-muted)', marginBottom: '4px' }}>Parameters:</div>
+                    <pre style={{ margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-all', color: 'var(--text-secondary)' }}>
+                      {JSON.stringify(tool.parameters, null, 2)}
+                    </pre>
+                  </div>
+                )}
               </div>
             ))}
           </div>
