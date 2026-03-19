@@ -122,7 +122,7 @@ def executor_agent(state: dict) -> dict:
         all_tool_results.append(step_results)
 
     # ── Use LLM to synthesize execution results ───────────────────────────
-    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.2)
+    llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.2)
 
     user_message = (
         f"Here are the execution results for the plan:\n\n"

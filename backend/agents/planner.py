@@ -83,7 +83,7 @@ def planner_agent(state: dict) -> dict:
         })
 
     # Call the LLM
-    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.3)
+    llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.3)
     messages = [
         SystemMessage(content=PLANNER_SYSTEM_PROMPT),
         HumanMessage(content=user_message),

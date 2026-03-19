@@ -1,0 +1,60 @@
+.plan-flowchart {
+  background: var(--bg-card);
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--space-lg);
+  animation: slideFadeIn 0.5s ease forwards;
+}
+
+.plan-flowchart__header {
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--border-secondary);
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: rgba(0,0,0,0.2);
+}
+
+.plan-flowchart__header .count {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--color-planner);
+  background: rgba(168, 85, 247, 0.1); /* Matching Planner Theme */
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.plan-flowchart__body {
+  padding: var(--space-lg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 200px;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.mermaid-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Subtle glow filter over the SVG */
+.mermaid-container svg {
+  max-width: 100%;
+  filter: drop-shadow(0 0 4px rgba(57, 255, 20, 0.2));
+  transition: transform 0.3s ease;
+}
+
+.mermaid-container svg:hover {
+  transform: scale(1.02);
+}

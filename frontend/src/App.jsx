@@ -5,9 +5,15 @@ import './App.css'
 import InputSection from './components/InputSection'
 import WorkflowGraph from './components/WorkflowGraph'
 import ThinkingIndicator from './components/ThinkingIndicator'
+import PlanFlowchart from './components/PlanFlowchart'
 import AgentTimeline from './components/AgentTimeline'
 import DecisionPanel from './components/DecisionPanel'
 import FinalOutput from './components/FinalOutput'
+import AuthPage from './components/AuthPage'
+
+import { signOut, onAuthStateChanged } from 'firebase/auth'
+import { collection, addDoc, query, orderBy, onSnapshot, getDocs, deleteDoc } from 'firebase/firestore'
+import { auth, provider, db } from './firebase'
 
 const API_BASE = 'http://localhost:8000'
 
@@ -27,20 +33,37 @@ function App() {
   const [history, setHistory] = useState([])
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
 
-  // Load history from local storage on mount
+  // Auth state
+  const [user, setUser] = useState(null)
+  const [authInitializing, setAuthInitializing] = useState(true)
+
+  // Listen for Auth and load Firestore history automatically
   useEffect(() => {
-    const saved = localStorage.getItem('agentic_history')
-    if (saved) {
-      try {
-        setHistory(JSON.parse(saved))
-      } catch(e) {}
-    }
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setAuthInitializing(false);
+      if (currentUser) {
+        // Realtime subscription to the user's secure collections
+        const q = query(collection(db, `users/${currentUser.uid}/history`), orderBy('timestamp', 'desc'));
+        const unsubSnapshot = onSnapshot(q, (snapshot) => {
+          const loadedHistory = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          setHistory(loadedHistory);
+        }, (err) => {
+          console.error("Firestore sync error:", err);
+        });
+        return () => unsubSnapshot();
+      } else {
+        setHistory([]);
+      }
+    });
+    return () => unsubscribe();
   }, [])
 
-  // Save history to local storage when updated
-  useEffect(() => {
-    localStorage.setItem('agentic_history', JSON.stringify(history))
-  }, [history])
+  const handleLogout = async () => {
+    await signOut(auth);
+    setResult(null);
+    setPipelineStage('idle');
+  }
 
   const loadHistoryItem = (item) => {
     setResult(item.result)
@@ -48,9 +71,16 @@ function App() {
     setPipelineStage('complete')
   }
 
-  const clearHistory = () => {
-    if (confirm("Are you sure you want to clear all history?")) {
-      setHistory([])
+  const clearHistory = async () => {
+    if (!user) {
+      setHistory([]);
+      return;
+    }
+    if (confirm("Are you sure you want to clear your synced history?")) {
+      const q = query(collection(db, `users/${user.uid}/history`));
+      const snaps = await getDocs(q);
+      const deletePromises = snaps.docs.map(d => deleteDoc(d.ref));
+      await Promise.all(deletePromises);
       setResult(null)
       setPipelineStage('idle')
     }
@@ -92,13 +122,20 @@ function App() {
       if (!data.success) {
         setError(data.error || 'Workflow failed. Check the logs for details.')
       } else {
-        // Save to history
-        setHistory(prev => [{
-          id: Date.now(),
-          task: task,
-          date: new Date().toLocaleTimeString(),
-          result: data
-        }, ...prev])
+        // Save to Firestore History Securely
+        if (user) {
+          try {
+            await addDoc(collection(db, `users/${user.uid}/history`), {
+              task: task,
+              date: new Date().toLocaleTimeString(),
+              result: data,
+              timestamp: Date.now()
+            });
+          } catch (e) { console.error("Could not save to firestore", e); }
+        } else {
+           // Fallback if not logged in
+           setHistory(prev => [{ id: Date.now(), task, date: new Date().toLocaleTimeString(), result: data }, ...prev])
+        }
       }
 
       setResult(data)
@@ -116,6 +153,18 @@ function App() {
     }
   }
 
+  if (authInitializing) {
+    return (
+      <div className="auth-page" style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <div className="loading-spinner"></div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <AuthPage />;
+  }
+
   return (
     <div className="app-container">
       {/* Sidebar for History */}
@@ -125,6 +174,15 @@ function App() {
             <span>📚 Run History</span>
             <button className="sidebar__clear-btn" onClick={clearHistory}>Clear</button>
           </div>
+          
+            {/* Removed internal login button since AuthPage handles it */}
+            <div className="sidebar__auth" style={{ padding: '0 16px 16px', borderBottom: '1px solid var(--border-secondary)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg-card)' }}>
+              <div style={{fontSize: '0.75rem', color: 'var(--text-secondary)'}}>
+                Agent <strong style={{color: 'var(--color-planner)'}}>{user.displayName || user.email?.split('@')[0]}</strong>
+              </div>
+              <button onClick={handleLogout} style={{background: 'rgba(255, 51, 51, 0.1)', border: '1px solid rgba(255, 51, 51, 0.3)', color: '#ff3333', padding: '4px 8px', borderRadius: '4px', fontSize: '0.7rem', cursor: 'pointer', transition: 'all 0.2s'}}>Disconnect</button>
+            </div>
+
           <div className="sidebar__body">
             {history.length === 0 ? (
               <div style={{ color: 'var(--text-muted)', fontSize: '0.8rem', textAlign: 'center', marginTop: '20px' }}>No history yet.</div>
@@ -210,6 +268,9 @@ function App() {
                  {/* Middle & Bottom: Results */}
                  {result && (
                    <div className="dashboard-results">
+                     {/* Flowchart Diagram */}
+                     <PlanFlowchart plan={result.plan} />
+
                      {/* Middle: Agent Timeline */}
                      <AgentTimeline logs={result.agent_logs} />
                      

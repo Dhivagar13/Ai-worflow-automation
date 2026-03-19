@@ -62,7 +62,7 @@ class WorkflowResponse(BaseModel):
     execution_results: dict | None = None
     monitor_feedback: str | None = None
     monitor_decision: str | None = None
-    final_output: str | None = None
+    final_output: str | dict | list | None = None
     retry_count: int = 0
     agent_logs: list = []
     error: str | None = None
