@@ -21,13 +21,13 @@ import { signOut, onAuthStateChanged } from 'firebase/auth'
 import { collection, addDoc, query, orderBy, onSnapshot, getDocs, deleteDoc } from 'firebase/firestore'
 import { auth, db } from './firebase'
 
-// v1.1.0 - CLOUD PRODUCTION FIX
+// v1.2.0 - CLOUD-FORCED GATEWAY
 const API_BASE = import.meta.env.VITE_API_BASE_URL 
-  || (window.location.hostname.includes('vercel.app') || window.location.hostname.includes('onrender.com') 
+  || (window.location.hostname !== 'localhost'
       ? 'https://ai-worflow-automation.onrender.com' 
       : 'http://localhost:8000');
 
-console.log('🚀 SYSTEM_v1.1.0_ONLINE | API_GATEWAY:', API_BASE);
+console.log('🚀 SYSTEM_v1.2.0_DEPLOYED | API_GATEWAY:', API_BASE);
 
 function App() {
   const [activeTab, setActiveTab] = useState('dashboard')

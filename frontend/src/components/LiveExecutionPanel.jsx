@@ -45,7 +45,7 @@ export default function LiveExecutionPanel({ logs, isRunning }) {
             <span className="dot yellow"></span>
             <span className="dot green"></span>
          </div>
-         <span className="panel-title">System Execution Terminal (v1.1.0 CLOUD_SYNC)</span>
+         <span className="panel-title">System Execution Terminal (v1.2.0 PRODUCTION_FORCED)</span>
          <span className="panel-status">{isRunning ? 'UPDATING...' : 'IDLE'}</span>
       </div>
 
