@@ -21,7 +21,8 @@ import { signOut, onAuthStateChanged } from 'firebase/auth'
 import { collection, addDoc, query, orderBy, onSnapshot, getDocs, deleteDoc } from 'firebase/firestore'
 import { auth, db } from './firebase'
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+const API_BASE = import.meta.env.VITE_API_BASE_URL 
+  || (import.meta.env.PROD ? 'https://ai-worflow-automation.onrender.com' : 'http://localhost:8000');
 
 function App() {
   const [activeTab, setActiveTab] = useState('dashboard')
@@ -190,6 +191,8 @@ function App() {
   }
 
   return (
+    <>
+    <div className="ambient-glow"></div>
     <div className="platform-container">
       <Navigation 
         activeTab={activeTab} 
@@ -223,6 +226,7 @@ function App() {
         </div>
       )}
     </div>
+    </>
   )
 }
 
