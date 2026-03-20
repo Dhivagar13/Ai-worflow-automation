@@ -22,7 +22,9 @@ import { collection, addDoc, query, orderBy, onSnapshot, getDocs, deleteDoc } fr
 import { auth, db } from './firebase'
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL 
-  || (import.meta.env.PROD ? 'https://ai-worflow-automation.onrender.com' : 'http://localhost:8000');
+  || (window.location.hostname !== 'localhost' ? 'https://ai-worflow-automation.onrender.com' : 'http://localhost:8000');
+
+console.log('📡 System Initialization: Targeting API Gateway ->', API_BASE);
 
 function App() {
   const [activeTab, setActiveTab] = useState('dashboard')
