@@ -35,7 +35,7 @@ export default function FinalOutput({ result }) {
         <span>Final Output — Approved by Monitor</span>
       </div>
 
-      <div className="final-output__content">
+      <div className="final-output__content" style={{ whiteSpace: 'pre-wrap', fontFamily: 'monospace', padding: 'var(--space-md)', background: 'rgba(0,0,0,0.3)', borderRadius: '8px' }}>
         {result.final_output}
       </div>
 

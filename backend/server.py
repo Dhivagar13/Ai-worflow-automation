@@ -68,6 +68,12 @@ class WorkflowResponse(BaseModel):
     agent_logs: list = []
     error: str | None = None
     execution_time_seconds: float | None = None
+    # Enhanced attributes matching advanced orchestration format
+    intent: str = ""
+    agents_used: list = []
+    tools_used: list = []
+    execution: list = []
+    validation: dict = {}
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -134,6 +140,44 @@ def run_workflow(request: WorkflowRequest):
         elapsed = (datetime.now() - start_time).total_seconds()
         print(f"✅ Workflow completed in {elapsed:.2f}s — Decision: {result.get('monitor_decision', 'N/A')}")
 
+        # Extract structured data to match advanced JSON output schema requirements
+        intent = result.get("plan", {}).get("task_summary", request.task) if result.get("plan") else request.task
+        plan_list = []
+        if result.get("plan") and result.get("plan").get("steps"):
+            plan_list = [step.get("description", step.get("title", "")) for step in result["plan"]["steps"]]
+            
+        agents_used = ["Planner", "Tool Selector", "Executor", "Monitor"]
+        
+        tools_used = []
+        if result.get("tool_selections") and result.get("tool_selections").get("tool_selections"):
+            for step_tools in result["tool_selections"]["tool_selections"]:
+                for tool in step_tools.get("selected_tools", []):
+                    tool_name = tool.get("tool_name")
+                    if tool_name not in tools_used:
+                        tools_used.append(tool_name)
+                        
+        execution_list = []
+        if result.get("execution_results") and result.get("execution_results").get("execution_summary"):
+            execution_list = result["execution_results"]["execution_summary"]
+            
+        validation = {
+            "issues_found": result.get("monitor_feedback", "None identified"),
+            "improvements_made": "Corrected iteratively" if result.get("retry_count", 0) > 0 else "None required"
+        }
+
+        # Instead of just outputting text, let's embed the exact JSON structure into `final_output` for UI to display it correctly
+        structured_json = {
+            "intent": intent,
+            "plan": plan_list,
+            "agents_used": agents_used,
+            "tools_used": tools_used,
+            "execution": execution_list,
+            "validation": validation,
+            "final_output": result.get("final_output", "")
+        }
+        
+        formatted_final_output = json.dumps(structured_json, indent=2)
+
         return WorkflowResponse(
             success=True,
             user_input=result.get("user_input", request.task),
@@ -142,10 +186,15 @@ def run_workflow(request: WorkflowRequest):
             execution_results=result.get("execution_results"),
             monitor_feedback=result.get("monitor_feedback"),
             monitor_decision=result.get("monitor_decision"),
-            final_output=result.get("final_output"),
+            final_output=formatted_final_output,
             retry_count=result.get("retry_count", 0),
             agent_logs=result.get("agent_logs", []),
             execution_time_seconds=elapsed,
+            intent=intent,
+            agents_used=agents_used,
+            tools_used=tools_used,
+            execution=execution_list,
+            validation=validation
         )
 
     except Exception as e:

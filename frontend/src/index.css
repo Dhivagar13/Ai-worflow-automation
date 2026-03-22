@@ -1,39 +1,39 @@
 :root {
-  /* Futuristic Dark Palette */
-  --bg-primary: #0a0c10;
-  --bg-secondary: #0f1218;
-  --bg-sidebar: #07090c;
-  --bg-card: rgba(255, 255, 255, 0.03);
-  --bg-card-hover: rgba(255, 255, 255, 0.05);
+  /* Futuristic Dark Palette - Deepened */
+  --bg-primary: #050806;
+  --bg-secondary: #0a110c;
+  --bg-sidebar: #020403;
+  --bg-card: rgba(16, 185, 129, 0.02);
+  --bg-card-hover: rgba(34, 197, 94, 0.05);
   
   --color-planner: #22c55e;
-  --color-planner-bg: rgba(34, 197, 94, 0.1);
+  --color-planner-bg: rgba(34, 197, 94, 0.15);
   --color-executor: #39ff14;
-  --color-executor-bg: rgba(57, 255, 20, 0.1);
+  --color-executor-bg: rgba(57, 255, 20, 0.15);
   --color-monitor: #10b981;
-  --color-monitor-bg: rgba(16, 185, 129, 0.1);
+  --color-monitor-bg: rgba(16, 185, 129, 0.15);
   --color-warning: #84cc16;
   --color-error: #ef4444;
   
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-primary: #f0fdf4;
+  --text-secondary: #86efac;
+  --text-muted: #22c55e; /* Dimmer green for muted text */
   --text-accent: #39ff14;
   
-  --border-primary: rgba(255, 255, 255, 0.08);
-  --border-secondary: rgba(255, 255, 255, 0.04);
-  --border-glow: rgba(57, 255, 20, 0.3);
+  --border-primary: rgba(57, 255, 20, 0.15);
+  --border-secondary: rgba(57, 255, 20, 0.08);
+  --border-glow: rgba(57, 255, 20, 0.4);
   
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 20px rgba(57, 255, 20, 0.15);
-  --shadow-glass: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 25px rgba(57, 255, 20, 0.2);
+  --shadow-glass: inset 0 0 0 1px rgba(57, 255, 20, 0.1);
   
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 20px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
   --radius-full: 9999px;
   
   --font-sans: 'Inter', -apple-system, sans-serif;
@@ -46,8 +46,8 @@
   --space-xl: 32px;
   --space-2xl: 48px;
   
-  --transition-fast: 0.15s ease;
-  --transition-normal: 0.25s ease;
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -60,38 +60,50 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-sans);
-  line-height: 1.5;
+  line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Ambient Neural Grid Background */
+/* Base Ambient Scanlines & Pulse Background */
 body::before {
   content: '';
   position: fixed;
-  top: -50px; left: 0; right: 0; bottom: -50px;
-  background-image: 
-    linear-gradient(rgba(57, 255, 20, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(57, 255, 20, 0.02) 1px, transparent 1px);
-  background-size: 40px 40px;
-  background-position: center top;
-  z-index: -2;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: 
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+    linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background-size: 100% 4px, 6px 100%; /* Extremely fine CRT scanlines */
+  z-index: 9999;
   pointer-events: none;
-  animation: gridScroll 30s linear infinite;
+  opacity: 0.4;
 }
 
 body::after {
   content: '';
   position: fixed;
+  top: -50px; left: 0; right: 0; bottom: -50px;
+  background-image: 
+    linear-gradient(rgba(57, 255, 20, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57, 255, 20, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: center top;
+  z-index: -2;
+  pointer-events: none;
+  animation: gridScroll 45s linear infinite;
+}
+
+.ambient-glow {
+  position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(ellipse at center, transparent 0%, var(--bg-primary) 80%);
+  background: radial-gradient(circle at 50% 50%, rgba(34, 197, 94, 0.05) 0%, transparent 80%);
   z-index: -1;
   pointer-events: none;
 }
 
 @keyframes gridScroll {
   0% { transform: translateY(0); }
-  100% { transform: translateY(40px); }
+  100% { transform: translateY(50px); }
 }
 
 #root {

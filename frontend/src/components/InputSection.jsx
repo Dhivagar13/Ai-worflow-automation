@@ -50,7 +50,7 @@ export default function InputSection({ onSubmit, isLoading }) {
           </span>
           <button
             id="submit-btn"
-            className="input-section__btn"
+            className="input-run-btn"
             onClick={handleSubmit}
             disabled={isLoading || !task.trim()}
           >
